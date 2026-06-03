@@ -16,6 +16,8 @@ interface Props {
   sequential?: boolean
   useOriginalCharsOnly?: boolean
   delay?: number
+  loop?: boolean
+  loopInterval?: number
 }
 
 const DEFAULT_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%'
@@ -33,9 +35,12 @@ export default function DecryptedText({
   revealDirection = 'start',
   useOriginalCharsOnly = false,
   delay = 0,
+  loop = false,
+  loopInterval = 4000,
 }: Props) {
   const [displayText, setDisplayText]   = useState(text)
   const [revealed,    setRevealed]      = useState<Set<number>>(new Set())
+  const [inView,      setInView]        = useState(false)
   const intervalRef   = useRef<ReturnType<typeof setInterval> | null>(null)
   const iterRef       = useRef(0)
   const hasAnimated   = useRef(false)
@@ -103,24 +108,28 @@ export default function DecryptedText({
     setRevealed(new Set())
   }, [text])
 
-  // View trigger
+  // View trigger → track visibility
   useEffect(() => {
     if (animateOn !== 'view') return
     const el = containerRef.current
     if (!el) return
     const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated.current) {
-          hasAnimated.current = true
-          if (delay > 0) setTimeout(start, delay)
-          else start()
-        }
-      },
+      ([entry]) => setInView(entry.isIntersecting),
       { threshold: 0.4 }
     )
     obs.observe(el)
     return () => obs.disconnect()
-  }, [animateOn, start])
+  }, [animateOn])
+
+  // Run once on first view; with `loop`, re-trigger every loopInterval while visible
+  useEffect(() => {
+    if (animateOn !== 'view' || !inView) return
+    const kick = () => { if (delay > 0) setTimeout(start, delay); else start() }
+    if (!hasAnimated.current) { hasAnimated.current = true; kick() }
+    if (!loop) return
+    const id = setInterval(kick, loopInterval)
+    return () => clearInterval(id)
+  }, [animateOn, inView, loop, loopInterval, delay, start])
 
   useEffect(() => () => { if (intervalRef.current) clearInterval(intervalRef.current) }, [])
 

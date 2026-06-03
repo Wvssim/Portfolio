@@ -1,17 +1,21 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-
-const NAV_LINKS = [
-  ['Work',    '#work'],
-  ['Skills',  '#skills'],
-  ['XP',      '#experience'],
-  ['Contact', '#contact'],
-] as const
+import { useI18n } from '@/lib/i18n'
+import LanguageSwitcher from './LanguageSwitcher'
 
 const SECTION_IDS = ['work', 'skills', 'experience', 'contact']
 
 export default function Nav() {
+  const { t } = useI18n()
+
+  const NAV_LINKS: [string, string][] = [
+    [t.nav.work,    '#work'],
+    [t.nav.skills,  '#skills'],
+    [t.nav.xp,      '#experience'],
+    [t.nav.contact, '#contact'],
+  ]
+
   const [scrolled,       setScrolled]       = useState(false)
   const [mounted,        setMounted]        = useState(false)
   const [activeSection,  setActiveSection]  = useState('')
@@ -50,9 +54,10 @@ export default function Nav() {
 
   return (
     <nav
+      className="site-nav"
       style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        padding: scrolled ? '14px 48px' : '24px 48px',
+        padding: scrolled ? '14px var(--gutter)' : '24px var(--gutter)',
         background: scrolled ? 'rgba(247,242,233,0.96)' : 'transparent',
         backdropFilter: scrolled ? 'blur(16px)' : 'none',
         borderBottom: scrolled ? '1px solid rgba(17,13,7,0.07)' : 'none',
@@ -75,18 +80,18 @@ export default function Nav() {
           transform: logoHovered ? 'scale(1.04)' : 'scale(1)',
           transition: 'transform 0.25s cubic-bezier(0.4,0,0.2,1)',
         }}>
-          Wassim
+          {t.brand.name}
           <span style={{
             color: 'var(--gold)',
             display: 'inline-block',
             animation: 'navDotPulse 4s ease-in-out infinite',
           }}>.</span>
-          lz
+          {t.brand.suffix}
         </div>
       </a>
 
       {/* ── Links + CTA ── */}
-      <div style={{ display: 'flex', gap: '36px', alignItems: 'center' }}>
+      <div className="nav-actions">
         {NAV_LINKS.map(([label, href], i) => {
           const sectionId = href.replace('#', '')
           const isActive  = activeSection === sectionId
@@ -97,6 +102,7 @@ export default function Nav() {
             <a
               key={label}
               href={href}
+              className="nav-link"
               style={{
                 fontFamily: 'var(--body)', fontSize: '13px', fontWeight: 500,
                 color: lit ? 'var(--gold)' : 'var(--ink-soft)',
@@ -140,8 +146,16 @@ export default function Nav() {
           onMouseEnter={() => setHireMeHovered(true)}
           onMouseLeave={() => setHireMeHovered(false)}
         >
-          HIRE ME
+          {t.nav.hire}
         </a>
+
+        {/* ── Language switcher ── */}
+        <div style={{
+          opacity: mounted ? 1 : 0,
+          transition: `opacity 0.45s ease ${0.06 * NAV_LINKS.length + 0.22}s`,
+        }}>
+          <LanguageSwitcher />
+        </div>
       </div>
     </nav>
   )

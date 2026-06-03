@@ -1,91 +1,107 @@
 'use client'
 
+import { useState } from 'react'
 import { CERTS } from '@/lib/data'
+import { useI18n } from '@/lib/i18n'
+import SpotlightCard from './SpotlightCard'
+import CertModal from './CertModal'
 
 const SCHOOLS = [
-  { school: 'EMSI Casablanca', degree: 'Engineering degree — DSI', years: '2024 → 2026' },
-  { school: 'CFPM Skhirat',    degree: 'Full-Stack Technician',    years: '2023 → 2024' },
+  { school: 'EMSI Casablanca', years: '2024 → 2026' },
+  { school: 'CFPM Skhirat',    years: '2023 → 2024' },
 ]
 
+const kickerRow = (label: string) => (
+  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+    <div style={{ width: '32px', height: '1px', background: 'var(--gold)' }} />
+    <span style={{ fontSize: '11px', letterSpacing: '0.25em', color: 'var(--gold)', fontWeight: 500 }}>{label}</span>
+  </div>
+)
+
+const heading: React.CSSProperties = {
+  fontFamily: 'var(--display)', fontSize: 'clamp(36px,5vw,64px)',
+  fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1, marginBottom: '48px',
+}
+
 export default function Education() {
+  const { t } = useI18n()
+  const [openCert, setOpenCert] = useState<number | null>(null)
   return (
-    <section style={{ padding: '120px 48px', background: 'var(--cream)' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px' }}>
+    <section style={{ padding: 'clamp(72px,10vw,120px) var(--gutter)', background: 'var(--cream)' }}>
 
-        {/* Education */}
-        <div>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <div style={{ width: '32px', height: '1px', background: 'var(--gold)' }} />
-            <span style={{ fontSize: '11px', letterSpacing: '0.25em', color: 'var(--gold)', fontWeight: 500 }}>EDUCATION</span>
+      {/* ── Education ── */}
+      {kickerRow(t.education.kicker)}
+      <h2 style={heading}>
+        {t.education.titleLine1}<br /><em style={{ fontStyle: 'italic', fontWeight: 300 }}>{t.education.titleLine2}</em>
+      </h2>
+      <div className="grid-edu" style={{ display: 'grid' }}>
+        {SCHOOLS.map((e, i) => (
+          <div
+            key={i}
+            style={{ borderLeft: `3px solid ${i === 0 ? 'var(--gold)' : 'rgba(184,134,42,0.3)'}`, paddingLeft: '24px' }}
+          >
+            <div style={{ fontFamily: 'var(--body)', fontSize: '11px', letterSpacing: '0.1em', color: 'var(--ink-dim)', marginBottom: '6px' }}>
+              {e.years}
+            </div>
+            <div style={{ fontFamily: 'var(--display)', fontSize: '20px', fontWeight: 700, letterSpacing: '-0.02em', marginBottom: '4px' }}>
+              {e.school}
+            </div>
+            <div style={{ fontFamily: 'var(--body)', fontSize: '14px', fontWeight: 300, color: 'var(--ink-soft)' }}>
+              {t.education.schools[i]?.degree ?? e.school}
+            </div>
           </div>
-          <h2 style={{
-            fontFamily: 'var(--display)', fontSize: 'clamp(36px,5vw,64px)',
-            fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1, marginBottom: '48px',
-          }}>
-            Where I<br /><em style={{ fontStyle: 'italic', fontWeight: 300 }}>studied.</em>
-          </h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-            {SCHOOLS.map((e, i) => (
-              <div
-                key={i}
-                style={{ borderLeft: `3px solid ${i === 0 ? 'var(--gold)' : 'rgba(184,134,42,0.3)'}`, paddingLeft: '24px' }}
-              >
-                <div style={{ fontFamily: 'var(--body)', fontSize: '11px', letterSpacing: '0.1em', color: 'var(--ink-dim)', marginBottom: '6px' }}>
-                  {e.years}
-                </div>
-                <div style={{ fontFamily: 'var(--display)', fontSize: '20px', fontWeight: 700, letterSpacing: '-0.02em', marginBottom: '4px' }}>
-                  {e.school}
-                </div>
-                <div style={{ fontFamily: 'var(--body)', fontSize: '14px', fontWeight: 300, color: 'var(--ink-soft)' }}>
-                  {e.degree}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        ))}
+      </div>
 
-        {/* Certifications */}
-        <div>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <div style={{ width: '32px', height: '1px', background: 'var(--gold)' }} />
-            <span style={{ fontSize: '11px', letterSpacing: '0.25em', color: 'var(--gold)', fontWeight: 500 }}>CERTIFICATIONS</span>
-          </div>
-          <h2 style={{
-            fontFamily: 'var(--display)', fontSize: 'clamp(36px,5vw,64px)',
-            fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1, marginBottom: '48px',
-          }}>
-            Things I<br /><em style={{ fontStyle: 'italic', fontWeight: 300 }}>earned.</em>
-          </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: 'rgba(17,13,7,0.1)' }}>
-            {CERTS.map((c, i) => (
-              <div
-                key={i}
-                style={{
-                  background: 'var(--cream)', padding: '24px',
-                  borderBottom: '2px solid transparent',
-                  transition: 'border-color 0.2s, background 0.2s',
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.borderBottomColor = 'var(--gold)'
-                  e.currentTarget.style.background = 'var(--cream-dark)'
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.borderBottomColor = 'transparent'
-                  e.currentTarget.style.background = 'var(--cream)'
-                }}
-              >
-                <div style={{ fontFamily: 'var(--display)', fontSize: '16px', fontWeight: 700, letterSpacing: '-0.01em', marginBottom: '6px' }}>
+      {/* ── Certifications ── */}
+      <div style={{ marginTop: 'clamp(72px,9vw,112px)' }}>
+        {kickerRow(t.education.certKicker)}
+        <h2 style={heading}>
+          {t.education.certTitleLine1}<br /><em style={{ fontStyle: 'italic', fontWeight: 300 }}>{t.education.certTitleLine2}</em>
+        </h2>
+        <div className="grid-certs" style={{ display: 'grid', gap: '1px', background: 'rgba(184,134,42,0.18)' }}>
+          {CERTS.map((c, i) => (
+            <SpotlightCard
+              key={i}
+              spotColor="rgba(212,168,80,0.4)"
+              onClick={() => c.image && setOpenCert(i)}
+              role="button"
+              tabIndex={0}
+              aria-label={c.title}
+              onKeyDown={(e) => {
+                if ((e.key === 'Enter' || e.key === ' ') && c.image) { e.preventDefault(); setOpenCert(i) }
+              }}
+              style={{
+                background: 'var(--ink)', padding: '24px', minHeight: '150px',
+                display: 'flex', flexDirection: 'column', cursor: c.image ? 'pointer' : 'default',
+              }}
+            >
+              {c.image && (
+                <span aria-hidden="true" className="cert-expand" style={{
+                  position: 'absolute', top: '18px', right: '18px', zIndex: 1,
+                  color: 'var(--gold)', fontSize: '14px', lineHeight: 1,
+                }}>⤢</span>
+              )}
+              <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
+                <div style={{ fontFamily: 'var(--display)', fontSize: '16px', fontWeight: 700, color: 'var(--cream)', letterSpacing: '-0.01em', lineHeight: 1.28, marginBottom: '12px', paddingRight: '22px' }}>
                   {c.title}
                 </div>
-                <div style={{ fontFamily: 'var(--body)', fontSize: '12px', fontWeight: 300, color: 'var(--ink-dim)' }}>
-                  {c.issuer} · {c.platform}
+                <div style={{ marginTop: 'auto' }}>
+                  <div style={{ fontFamily: 'var(--body)', fontSize: '12px', fontWeight: 400, color: 'rgba(247,242,233,0.6)', marginBottom: '3px' }}>
+                    {c.issuer}
+                  </div>
+                  <div style={{ fontFamily: 'var(--body)', fontSize: '11px', fontWeight: 300, color: 'rgba(247,242,233,0.34)', letterSpacing: '0.06em' }}>
+                    {c.date}
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </SpotlightCard>
+          ))}
         </div>
-
       </div>
+
+      <CertModal certs={CERTS} openIndex={openCert} onChange={setOpenCert} viewCertLabel={t.education.viewCert} />
+
     </section>
   )
 }

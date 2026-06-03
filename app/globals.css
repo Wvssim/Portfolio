@@ -17,18 +17,112 @@
   /* Aliases so components can use var(--display) / var(--body) unchanged */
   --display: var(--font-display, 'Fraunces'), Georgia, serif;
   --body: var(--font-body, 'DM Sans'), sans-serif;
+
+  /* ── Design tokens (motion + depth) ── */
+  --paper: #FBF8F1;
+  --gold-deep: #9A6F1E;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-card:
+    0 1px 0 rgba(184,134,42,0.18),
+    0 26px 50px -14px rgba(17,13,7,0.30),
+    0 10px 20px -12px rgba(17,13,7,0.20);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
+/* ── Responsive layout primitives ──────────────────────────────────
+   Inline styles can't hold media queries and always beat the stylesheet,
+   so layout props that must adapt live here as a shared gutter + grid
+   classes. Components reference var(--gutter) inline and drop their
+   grid-template-columns/gap so these rules can take over.            */
+:root { --gutter: 48px; }
+@media (max-width: 1024px) { :root { --gutter: 32px; } }
+@media (max-width: 600px)  { :root { --gutter: 20px; } }
+
+/* Sidebar + content (About, Experience) → stack on small screens */
+.grid-aside { grid-template-columns: 1fr 2fr; gap: 80px; }
+@media (max-width: 860px) { .grid-aside { grid-template-columns: 1fr; gap: 40px; } }
+
+/* Even two columns (Education) → single column */
+.grid-2 { grid-template-columns: 1fr 1fr; gap: 80px; }
+@media (max-width: 860px) { .grid-2 { grid-template-columns: 1fr; gap: 56px; } }
+
+/* Work cards (2 → 1) */
+.grid-work { grid-template-columns: 1fr 1fr; }
+@media (max-width: 720px) { .grid-work { grid-template-columns: 1fr; } }
+
+/* Stats bar (4 → 2) */
+.grid-stats { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 720px) { .grid-stats { grid-template-columns: repeat(2, 1fr); } }
+
+/* Skills (4 → 2 → 1) */
+.grid-skills { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 1024px) { .grid-skills { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px)  { .grid-skills { grid-template-columns: 1fr; } }
+
+/* Certifications — full-width auto-fitting grid (adapts 4→3→2→1 columns) */
+.grid-certs { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+@media (max-width: 560px) { .grid-certs { grid-template-columns: 1fr; } }
+
+/* Schools — two side by side, stacked on phones */
+.grid-edu { grid-template-columns: 1fr 1fr; gap: 32px; }
+@media (max-width: 640px) { .grid-edu { grid-template-columns: 1fr; gap: 28px; } }
+
+/* Keep the nav laid out LTR even in Arabic (logo stays on the left),
+   while the labels themselves still render in Arabic */
+html[dir="rtl"] .site-nav { direction: ltr; }
+
+/* Nav: tighten spacing, then drop section links on phones */
+.nav-actions { display: flex; gap: 36px; align-items: center; }
+@media (max-width: 880px) { .nav-actions { gap: 20px; } }
+@media (max-width: 480px) { .nav-actions { gap: 12px; } }
+@media (max-width: 640px) { .nav-link { display: none; } }
+
+/* Hero: content sits at the bottom on desktop, centred on phones
+   (otherwise it gets pushed very low with empty space above) */
+.hero { justify-content: flex-end; padding-block: 0 52px; }
+@media (max-width: 700px) {
+  /* Centred but biased upward (larger bottom padding lifts the content) */
+  .hero { justify-content: center; padding-block: 96px 150px; }
+}
+
+/* Footer wraps instead of overflowing on narrow screens */
+@media (max-width: 600px) {
+  .footer { flex-wrap: wrap; gap: 24px; justify-content: center; text-align: center; }
+}
+
+
 body {
   background: var(--cream);
   color: var(--ink);
   font-family: var(--body);
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-optical-sizing: auto;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
 }
+
+/* Editorial paper grain — a fixed monochrome noise wash over everything,
+   click-through, very low opacity. Gives a tactile print quality.        */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 2147483646;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* Display headings: let Fraunces use its optical-size axis + tighter kerning */
+h1, h2, h3 { font-optical-sizing: auto; font-feature-settings: 'kern' 1, 'liga' 1, 'dlig' 1; }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
@@ -50,18 +144,246 @@ body {
   to   { transform: translateX(-50%); }
 }
 
+/* ── SpotlightCard — "lamp" hover ──────────────────────────────────
+   Three layers that switch on together on hover:
+   1. ::before  a gold bloom glowing down from the top edge (the lamp)
+   2. ::after   a bright hairline along that top edge (the bulb)
+   3. __glow    a luminous radial that tracks the cursor (screen blend)   */
+.spotlight-card { position: relative; overflow: hidden; }
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  width: 78%; height: 66px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at top, rgba(212,168,80,0.5), transparent 72%);
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-out);
+  pointer-events: none;
+  z-index: 2;
+}
+.spotlight-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-out);
+  pointer-events: none;
+  z-index: 3;
+}
+.spotlight-card:hover::before,
+.spotlight-card:hover::after { opacity: 1; }
+
+.spotlight-card__glow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;     /* gold radial reads as light on the dark card */
+  transition: opacity 0.4s var(--ease);
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    var(--spot, rgba(184,134,42,0.28)),
+    transparent 60%
+  );
+}
+.spotlight-card:hover .spotlight-card__glow { opacity: 1; }
+
+/* Expand hint on certificate cards */
+.cert-expand { transition: transform 0.3s var(--ease-out), color 0.3s var(--ease); }
+.spotlight-card:hover .cert-expand { transform: translate(2px, -2px) scale(1.15); color: var(--gold-light); }
+
+/* Certificate lightbox */
+@keyframes modalFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modalPop  { from { opacity: 0; transform: translateY(14px) scale(0.94); } to { opacity: 1; transform: none; } }
+.cert-modal        { animation: modalFade 0.28s var(--ease) both; }
+.cert-modal__panel { animation: modalPop 0.44s var(--ease-out) both; }
+
+/* Fade the scrolling tech list softly at both ends (text only, bar stays full) */
+.marquee-track {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
 @keyframes navDotPulse {
   0%, 100% { opacity: 1;   transform: scale(1); }
   50%       { opacity: 0.5; transform: scale(0.85); }
 }
 
-.animate        { animation: fadeUp 0.7s ease both; }
+@keyframes slowRotate {
+  from { transform: translateY(-50%) rotate(0deg); }
+  to   { transform: translateY(-50%) rotate(360deg); }
+}
+
+.animate        { animation: fadeUp 0.8s var(--ease-out) both; }
 .anim-delay-1   { animation-delay: 0.1s; }
 .anim-delay-2   { animation-delay: 0.2s; }
 .anim-delay-3   { animation-delay: 0.3s; }
 .anim-delay-4   { animation-delay: 0.4s; }
 
-.hover-lift { transition: transform 0.25s ease, box-shadow 0.25s ease; }
-.hover-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 48px #110D0720; }
+.hover-lift { transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out); }
+.hover-lift:hover { transform: translateY(-6px); box-shadow: var(--shadow-card); }
 
-::selection { background: var(--gold); color: var(--cream); }
+::selection { background: var(--gold); color: var(--cream); text-shadow: none; }
+
+/* 404 "back home" button */
+.back-home { transition: background 0.25s var(--ease), transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease); }
+.back-home:hover { background: var(--gold); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(184,134,42,0.35); }
+
+/* Custom scrollbar — thin gold thumb on a cream track */
+html { scrollbar-color: var(--gold) var(--cream-dark); scrollbar-width: thin; }
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: var(--cream-dark); }
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border: 3px solid var(--cream-dark);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--gold-deep); }
+
+/* Keyboard focus — visible gold ring, hidden for mouse users */
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+:focus:not(:focus-visible) { outline: none; }
+
+/* Respect users who ask the OS to minimise motion (a11y / vestibular safety) */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Scroll-driven section reveals ─────────────────────────────────
+   Pure-CSS: each content section lifts + fades as it scrolls into view.
+   Guarded by @supports (no-op on older browsers) and by no-preference
+   (fully disabled when the user asks to reduce motion). Hero is excluded
+   so its own load animation stays untouched.                          */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    body > section:not(.hero) {
+      animation: revealSection both linear;
+      animation-timeline: view();
+      animation-range: entry 4% entry 46%;
+    }
+  }
+}
+@keyframes revealSection {
+  from { opacity: 0; transform: translateY(46px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── GooeyNav ──────────────────────────────────────────────────── */
+:root {
+  --gooey-color-1: var(--gold);
+  --gooey-color-2: var(--gold-light);
+  --gooey-color-3: var(--cream);
+  --gooey-color-4: var(--rust);
+}
+
+.gooey-nav-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.gooey-nav-container nav ul {
+  list-style: none;
+  display: flex;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.gooey-nav-container nav ul li {
+  cursor: pointer;
+}
+
+.gooey-nav-container nav ul li a {
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: rgba(247,242,233,0.4);
+  text-decoration: none;
+  transition: color 0.2s;
+  display: block;
+  padding: 4px 0;
+  user-select: none;
+}
+
+.gooey-nav-container nav ul li:hover a,
+.gooey-nav-container nav ul li.active a {
+  color: rgba(247,242,233,0.95);
+}
+
+.gooey-effect {
+  position: absolute;
+  border-radius: 3px;
+  pointer-events: none;
+  transition: left 0.3s ease, top 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+.gooey-filter {
+  filter: url('#goo');
+  overflow: visible;
+  background: rgba(184,134,42,0.18);
+  z-index: 0;
+}
+
+.gooey-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 3;
+}
+
+.gooey-text.active {
+  opacity: 1;
+}
+
+.gooey-particle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* animation appliquée directement via JS sur chaque particule */
+
+.gooey-point {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--color);
+}
+
+@keyframes gooeyParticle {
+  0% {
+    opacity: 1;
+    transform: translate(calc(-50% + var(--start-x)), calc(-50% + var(--start-y)))
+               scale(var(--scale)) rotate(var(--rotate));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--end-x)), calc(-50% + var(--end-y)))
+               scale(0.1) rotate(var(--rotate));
+  }
+}

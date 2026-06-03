@@ -1,22 +1,24 @@
 'use client'
 
 import { SKILL_DOMAINS } from '@/lib/data'
+import { useI18n } from '@/lib/i18n'
 
 export default function Skills() {
+  const { t } = useI18n()
   return (
-    <section id="skills" style={{ padding: '120px 48px', background: 'var(--cream-dark)' }}>
+    <section id="skills" style={{ padding: 'clamp(72px,10vw,120px) var(--gutter)', background: 'var(--cream-dark)' }}>
       <div style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
         <div style={{ width: '32px', height: '1px', background: 'var(--gold)' }} />
-        <span style={{ fontSize: '11px', letterSpacing: '0.25em', color: 'var(--gold)', fontWeight: 500 }}>SKILLS</span>
+        <span style={{ fontSize: '11px', letterSpacing: '0.25em', color: 'var(--gold)', fontWeight: 500 }}>{t.skills.kicker}</span>
       </div>
       <h2 style={{
         fontFamily: 'var(--display)', fontSize: 'clamp(36px,5vw,64px)',
         fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1, marginBottom: '64px',
       }}>
-        The<br /><em style={{ fontStyle: 'italic', fontWeight: 300 }}>arsenal.</em>
+        {t.skills.titleLine1}<br /><em style={{ fontStyle: 'italic', fontWeight: 300 }}>{t.skills.titleLine2}</em>
       </h2>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '1px', background: 'rgba(17,13,7,0.1)' }}>
+      <div className="grid-skills" style={{ display: 'grid', gap: '1px', background: 'rgba(17,13,7,0.1)' }}>
         {SKILL_DOMAINS.map((domain, i) => (
           <div
             key={i}
@@ -38,7 +40,7 @@ export default function Skills() {
               {domain.n}
             </div>
             <h3 style={{ fontFamily: 'var(--display)', fontSize: '22px', fontWeight: 700, letterSpacing: '-0.02em', marginBottom: '20px', lineHeight: 1.1 }}>
-              {domain.title}
+              {t.skills.titles[i] ?? domain.title}
             </h3>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
               {domain.tags.map(tag => (

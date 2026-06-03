@@ -1,14 +1,17 @@
-import { STATS } from '@/lib/data'
+'use client'
+
+import { useI18n } from '@/lib/i18n'
 
 export default function StatsBar() {
+  const { t } = useI18n()
   return (
-    <div style={{
+    <div className="grid-stats" style={{
       background: 'var(--cream-dark)',
       borderTop: '1px solid rgba(17,13,7,0.1)',
       borderBottom: '1px solid rgba(17,13,7,0.1)',
-      display: 'grid', gridTemplateColumns: 'repeat(4,1fr)',
+      display: 'grid',
     }}>
-      {STATS.map((s, i) => (
+      {t.stats.map((s, i) => (
         <div
           key={i}
           style={{

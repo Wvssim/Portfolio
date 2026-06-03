@@ -2,26 +2,29 @@
 
 import { useState } from 'react'
 import { EXPERIENCES } from '@/lib/data'
+import { useI18n } from '@/lib/i18n'
 
 export default function Experience() {
+  const { t } = useI18n()
   const [active, setActive] = useState(0)
   const xp = EXPERIENCES[active]
+  const xpt = t.experience.items[active]
 
   return (
-    <section id="experience" style={{
-      padding: '120px 48px', background: 'var(--ink)',
-      display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '80px', alignItems: 'center',
+    <section id="experience" className="grid-aside" style={{
+      padding: 'clamp(72px,10vw,120px) var(--gutter)', background: 'var(--ink)',
+      display: 'grid', alignItems: 'center',
     }}>
       <div>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
           <div style={{ width: '32px', height: '1px', background: 'var(--gold)' }} />
-          <span style={{ fontSize: '11px', letterSpacing: '0.25em', color: 'var(--gold)', fontWeight: 500 }}>EXPERIENCE</span>
+          <span style={{ fontSize: '11px', letterSpacing: '0.25em', color: 'var(--gold)', fontWeight: 500 }}>{t.experience.kicker}</span>
         </div>
         <h2 style={{
           fontFamily: 'var(--display)', fontSize: 'clamp(32px,4vw,52px)',
           fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.05, color: 'var(--cream)',
         }}>
-          Where I&apos;ve<br /><em style={{ fontStyle: 'italic', fontWeight: 300 }}>worked.</em>
+          {t.experience.titleLine1}<br /><em style={{ fontStyle: 'italic', fontWeight: 300 }}>{t.experience.titleLine2}</em>
         </h2>
         <div style={{ display: 'flex', gap: '8px', marginTop: '40px' }}>
           {EXPERIENCES.map((_, i) => (
@@ -41,19 +44,19 @@ export default function Experience() {
       <div>
         <div style={{ borderLeft: '3px solid var(--gold)', paddingLeft: '32px', marginBottom: '32px' }}>
           <div style={{ fontFamily: 'var(--body)', fontSize: '11px', fontWeight: 500, letterSpacing: '0.15em', color: 'var(--gold)', marginBottom: '8px' }}>
-            {xp.period}
+            {xpt.period}
           </div>
           <h3 style={{
             fontFamily: 'var(--display)', fontSize: 'clamp(18px,2.5vw,28px)',
             fontWeight: 700, color: 'var(--cream)', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: '6px',
           }}>
-            {xp.role}
+            {xpt.role}
           </h3>
           <div style={{ fontFamily: 'var(--body)', fontSize: '14px', fontWeight: 400, color: 'rgba(247,242,233,0.5)', marginBottom: '20px' }}>
-            {xp.company}
+            {xpt.company ?? xp.company}
           </div>
           <p style={{ fontFamily: 'var(--body)', fontSize: '15px', fontWeight: 300, color: 'rgba(247,242,233,0.75)', lineHeight: 1.65 }}>
-            {xp.desc}
+            {xpt.desc}
           </p>
         </div>
         <div style={{ paddingLeft: '32px', display: 'flex', flexWrap: 'wrap', gap: '8px' }}>

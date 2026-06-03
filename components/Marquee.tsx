@@ -12,7 +12,7 @@ export default function Marquee() {
       borderBottom: '1px solid rgba(17,13,7,0.1)',
       padding: '18px 0', overflow: 'hidden', background: 'var(--ink)',
     }}>
-      <div style={{
+      <div className="marquee-track" style={{
         display: 'flex',
         animation: 'marqueeScroll 25s linear infinite',
         width: 'max-content',

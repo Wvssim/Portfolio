@@ -1,5 +1,6 @@
 import Nav        from '@/components/Nav'
 import Hero       from '@/components/Hero'
+import NameStamp  from '@/components/NameStamp'
 import StatsBar   from '@/components/StatsBar'
 import Marquee    from '@/components/Marquee'
 import About      from '@/components/About'
@@ -17,40 +18,7 @@ export default function Home() {
       <Hero />
 
       {/* Name stamp — above StatsBar */}
-      <div style={{
-        background: 'var(--cream)',
-        padding: '0px 48px 0px',
-        display: 'flex', alignItems: 'center', gap: '24px',
-        overflow: 'hidden',
-      }}>
-        <span style={{
-          fontFamily: 'var(--display)',
-          fontSize: 'clamp(42px, 6.5vw, 96px)',
-          fontWeight: 700,
-          letterSpacing: '0.12em',
-          lineHeight: 1,
-          color: 'transparent',
-          WebkitTextStroke: '1px rgba(184,134,42,0.45)',
-          userSelect: 'none',
-          whiteSpace: 'nowrap',
-        }}>
-          WASSIM
-        </span>
-        <div style={{ flex: 1, height: '1px', background: 'rgba(184,134,42,0.25)' }} />
-        <span style={{
-          fontFamily: 'var(--display)',
-          fontSize: 'clamp(42px, 6.5vw, 96px)',
-          fontWeight: 700,
-          letterSpacing: '0.12em',
-          lineHeight: 1,
-          color: 'transparent',
-          WebkitTextStroke: '1px rgba(184,134,42,0.45)',
-          userSelect: 'none',
-          whiteSpace: 'nowrap',
-        }}>
-          LAZIM
-        </span>
-      </div>
+      <NameStamp />
 
       <StatsBar />
       <Marquee />
