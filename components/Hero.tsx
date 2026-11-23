@@ -1,20 +1,22 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
 import LetterGlitch from './LetterGlitch'
 import { useI18n } from '@/lib/i18n'
+import { BlurIn, SlideIn, ScaleIn } from './RevealAnimations'
 
 export default function Hero() {
   const { t, lang } = useI18n()
   const isAr = lang === 'ar'
   const [viewHovered, setViewHovered] = useState(false)
-  const [ghHovered,   setGhHovered]   = useState(false)
-  const [liHovered,   setLiHovered]   = useState(false)
-  const [cvHovered,   setCvHovered]   = useState(false)
-  const [isMobile,    setIsMobile]    = useState(false)
+  const [ghHovered, setGhHovered] = useState(false)
+  const [liHovered, setLiHovered] = useState(false)
+  const [cvHovered, setCvHovered] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const heroRef = useRef<HTMLDivElement>(null)
 
-  // Reposition the </> backdrop on phones: centred + larger instead of
-  // anchored to the right (which looks shifted on narrow screens).
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 700px)')
     const update = () => setIsMobile(mq.matches)
@@ -22,15 +24,42 @@ export default function Hero() {
     mq.addEventListener('change', update)
     return () => mq.removeEventListener('change', update)
   }, [])
+
+  useGSAP(() => {
+    if (!heroRef.current) return
+    gsap.from('.animate', {
+      opacity: 0,
+      y: 20,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: 'power2.out',
+    })
+  }, { scope: heroRef })
+
   return (
-    <section className="hero" style={{
-      minHeight: 'calc(100vh - 131px)', display: 'flex', flexDirection: 'column',
-      paddingLeft: 'var(--gutter)', paddingRight: 'var(--gutter)',
-      position: 'relative', overflow: 'hidden',
-      background: 'radial-gradient(ellipse 80% 60% at 70% 40%, var(--cream-dark), var(--cream))',
-    }}>
-      {/* Glitch canvas — fills hero, clipped to </> shape */}
-      <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', opacity: isMobile ? 0.5 : 0.8 }}>
+    <section
+      ref={heroRef}
+      className="hero"
+      style={{
+        minHeight: 'calc(100vh - 131px)',
+        display: 'flex',
+        flexDirection: 'column',
+        paddingLeft: 'var(--gutter)',
+        paddingRight: 'var(--gutter)',
+        position: 'relative',
+        overflow: 'hidden',
+        background: 'radial-gradient(ellipse 80% 60% at 70% 40%, var(--cream-dark), var(--cream))',
+      }}
+    >
+      {/* Glitch canvas */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          pointerEvents: 'none',
+          opacity: isMobile ? 0.5 : 0.8,
+        }}
+      >
         <LetterGlitch
           text="</>"
           colors={['#2b4539', '#61dca3', '#61b3dc']}
@@ -38,7 +67,7 @@ export default function Hero() {
           glitchSpeed={50}
           centerVignette={false}
           outerVignette={false}
-          textX={isMobile ? 0.5 : (isAr ? 0.22 : 0.78)}
+          textX={isMobile ? 0.5 : isAr ? 0.22 : 0.78}
           textY={isMobile ? 0.5 : 0.57}
           fontSize={isMobile ? '64vw' : '28vw'}
           fontWeight="900"

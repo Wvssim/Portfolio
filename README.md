@@ -1,34 +1,53 @@
-# Wassim Lazim — Portfolio
+# Wassim Lazim — Portfolio v2.0
 
-A trilingual (EN / FR / AR), fully responsive personal portfolio with an
-editorial / luxury aesthetic — built with Next.js and hand-crafted animations.
+A trilingual (EN / FR / AR), fully responsive personal portfolio with premium
+animations and 3D effects — built with Next.js, Framer Motion, GSAP, and Lenis.
 
-## Highlights
+## Highlights v2.0
 
-- **Trilingual i18n** — English, French and Arabic, with a proper **RTL mirror**
+🎨 **Advanced Animations**
+- **Framer Motion** — scroll-triggered reveal animations (blur-in, box-reveal, slide-in, scale-in)
+- **GSAP** — high-performance timeline animations and interactions
+- **Lenis** — buttery smooth scroll experience across all devices
+- **Particles** — interactive mouse-reactive canvas background
+
+💎 **Enhanced UX**
+- Dynamic skill cards with hover effects and staggered animations
+- Work grid with elevated card interactions and smooth transitions
+- Improved About section with decrypted text effects
+- Mobile-optimized animations with performance awareness
+
+🌐 **Trilingual i18n** — English, French and Arabic, with a proper **RTL mirror**
   for Arabic (layout, alignment and decorative elements all flip), via a
   lightweight React context (`lib/i18n.tsx`) — no external i18n dependency.
-- **Responsive** — a shared `--gutter` token + grid breakpoints adapt every
+
+📱 **Responsive** — a shared `--gutter` token + grid breakpoints adapt every
   section from desktop down to mobile.
-- **Editorial polish** — paper-grain overlay, optical typography (Fraunces +
+
+✨ **Editorial polish** — paper-grain overlay, optical typography (Fraunces +
   DM Sans), pure-CSS scroll reveals, spotlight cards, an animated gold-dust
   footer, refined shadows / scrollbar / focus rings. All motion respects
   `prefers-reduced-motion`.
-- **Certifications gallery** — 10 certificates as a click-to-open **lightbox**
+
+📜 **Certifications gallery** — 10 certificates as a click-to-open **lightbox**
   (keyboard navigation, focus trap), optimised WebP previews (~12× smaller than
   the source PNGs) and live Coursera verification links.
-- **SEO / sharing** — `W` favicon, dynamic Open Graph image (`next/og`),
+
+🔍 **SEO / sharing** — `W` favicon, dynamic Open Graph image (`next/og`),
   `sitemap.xml`, `robots.txt`. The site URL is derived automatically from the
   Vercel production URL (no hard-coded domain).
-- **Extras** — downloadable CV, custom 404 page.
 
 ## Tech stack
 
 - [Next.js 15](https://nextjs.org/) (App Router)
 - React 18 + TypeScript
+- **Framer Motion** — animation library for React
+- **GSAP 3** — professional animation platform with @gsap/react plugin
+- **Lenis** — smooth scroll library
+- **Three.js** + React Three Fiber — 3D graphics (ready for 3D effects)
 - Inline styles + a single `app/globals.css` (CSS variables, keyframes,
   scroll-driven animations)
-- Canvas effects (`LetterGlitch`, `GoldDust`)
+- Canvas effects (`LetterGlitch`, `GoldDust`, `Particles`)
 - `next/og` for the social image
 
 ## Getting started

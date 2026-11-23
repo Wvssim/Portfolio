@@ -1,15 +1,28 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import DecryptedText from './DecryptedText'
 import { useI18n } from '@/lib/i18n'
+import { BlurIn } from './RevealAnimations'
 
 export default function About() {
   const { t } = useI18n()
   return (
-    <section className="grid-aside" style={{
-      padding: 'clamp(72px,10vw,120px) var(--gutter)', background: 'var(--ink)',
-      display: 'grid', alignItems: 'center',
-    }}>
+    <motion.section
+      className="grid-aside"
+      style={{
+        padding: 'clamp(72px,10vw,120px) var(--gutter)',
+        background: 'var(--ink)',
+        display: 'grid',
+        alignItems: 'center',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+    >
       <div>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
           <div style={{ width: '32px', height: '1px', background: 'var(--gold)' }} />
@@ -94,6 +107,6 @@ export default function About() {
           </p>
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }
