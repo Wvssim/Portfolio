@@ -48,6 +48,7 @@ interface Dict {
     titleLine2: string
     viewGithub: string
     visitSite: string
+    explore: string
     private: string
     items: WorkText[]
   }
@@ -123,6 +124,7 @@ const en: Dict = {
     titleLine2: 'shipped.',
     viewGithub: 'VIEW ON GITHUB',
     visitSite: 'VISIT SITE',
+    explore: 'EXPLORE',
     private: 'PRIVATE PROJECT',
     items: [
       {
@@ -235,6 +237,7 @@ const fr: Dict = {
     titleLine2: 'livré.',
     viewGithub: 'VOIR SUR GITHUB',
     visitSite: 'VISITER LE SITE',
+    explore: 'EXPLORER',
     private: 'PROJET PRIVÉ',
     items: [
       {
@@ -347,6 +350,7 @@ const ar: Dict = {
     titleLine2: 'أطلقتُه.',
     viewGithub: 'عرض على GitHub',
     visitSite: 'زيارة الموقع',
+    explore: 'استكشاف',
     private: 'مشروع خاص',
     items: [
       {
