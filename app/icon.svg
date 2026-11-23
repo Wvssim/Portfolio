@@ -1,5 +1,39 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#110D07"/>
-  <text x="30" y="45" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-weight="700" fill="#B8862A" text-anchor="middle">W</text>
-  <circle cx="50" cy="43" r="3.4" fill="#B8862A"/>
+  <!-- Background with gradient -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#110D07;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#00d9ff;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Main background -->
+  <rect width="64" height="64" rx="12" fill="url(#bgGrad)"/>
+
+  <!-- Glow effect -->
+  <circle cx="32" cy="32" r="28" fill="url(#glowGrad)"/>
+
+  <!-- Animated particles suggestion -->
+  <circle cx="20" cy="20" r="2" fill="#00d9ff" opacity="0.8"/>
+  <circle cx="44" cy="18" r="1.5" fill="#00d9ff" opacity="0.6"/>
+  <circle cx="52" cy="32" r="1.5" fill="#B8862A" opacity="0.7"/>
+  <circle cx="48" cy="48" r="2" fill="#00d9ff" opacity="0.8"/>
+  <circle cx="28" cy="52" r="1.5" fill="#B8862A" opacity="0.6"/>
+  <circle cx="16" cy="40" r="1.5" fill="#00d9ff" opacity="0.7"/>
+
+  <!-- Central "W" with modern style -->
+  <g>
+    <!-- Main W shape with gradient effect -->
+    <text x="32" y="43" font-family="'Georgia', serif" font-size="40" font-weight="900" fill="#B8862A" text-anchor="middle" letter-spacing="-2">W</text>
+
+    <!-- Accent line suggesting motion -->
+    <line x1="18" y1="32" x2="46" y2="32" stroke="#00d9ff" stroke-width="1.5" opacity="0.6"/>
+  </g>
+
+  <!-- Border accent -->
+  <rect width="64" height="64" rx="12" fill="none" stroke="#00d9ff" stroke-width="0.5" opacity="0.4"/>
 </svg>
