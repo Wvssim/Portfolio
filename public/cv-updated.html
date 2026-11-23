@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wassim Lazim - CV Full Stack Developer v2.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 8.5in;
+            height: 11in;
+            background: white;
+            margin: 0 auto;
+            padding: 0.5in;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+            color: #1a3d5c;
+        }
+        .header p {
+            font-size: 10px;
+            margin: 2px 0;
+            color: #666;
+        }
+        .contact {
+            text-align: center;
+            font-size: 9px;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        section {
+            margin-bottom: 12px;
+        }
+        h2 {
+            font-size: 11px;
+            font-weight: bold;
+            background: #f0f0f0;
+            padding: 5px 0;
+            border-bottom: 1px solid #999;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .job, .project {
+            margin-bottom: 8px;
+            page-break-inside: avoid;
+        }
+        .job h3, .project h3 {
+            font-size: 10px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        .job .meta, .project .meta {
+            font-size: 8px;
+            color: #666;
+            margin-bottom: 3px;
+        }
+        .meta .date {
+            float: right;
+            font-style: italic;
+        }
+        .meta .clear { clear: both; }
+        ul {
+            margin-left: 15px;
+            font-size: 9px;
+            line-height: 1.5;
+        }
+        li {
+            margin-bottom: 2px;
+        }
+        .highlight {
+            color: #b8571a;
+            font-weight: bold;
+        }
+        .certification {
+            font-size: 9px;
+            margin-bottom: 3px;
+        }
+        @media print {
+            body { padding: 0; background: white; }
+            .container { box-shadow: none; }
+            section { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Wassim Lazim</h1>
+            <p>Développeur Full Stack – Stage PFE | 6 mois dès février 2027, avec convention</p>
+        </div>
+
+        <div class="contact">
+            <p>Casablanca, Maroc | +212 6 63 22 37 79 | wassim.lazim3@gmail.com</p>
+            <p>github.com/Wvssim | linkedin.com/in/wassim-lazim-124aa935b</p>
+        </div>
+
+        <section>
+            <h2>Formation</h2>
+            <div class="job">
+                <h3>Cycle ingénieur d'État (Bac+5) – Développement Digital et Systèmes d'Information</h3>
+                <div class="meta">
+                    <span>EMSI, Casablanca – option DSI</span>
+                    <span class="date">2024 – 2027</span>
+                </div>
+            </div>
+            <div class="job">
+                <h3>Technicien Spécialisé, DTS (Bac+2) – Développement Digital Web Full Stack</h3>
+                <div class="meta">
+                    <span>OFPPT – CFPM de Skhirat</span>
+                    <span class="date">2022 – 2024</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Expériences Professionnelles</h2>
+
+            <div class="job">
+                <h3>Stagiaire développeur full stack – 6Solutions</h3>
+                <div class="meta">
+                    <span>Plateforme de documents avec audit, OCR et détection d'anomalies</span>
+                    <span class="date">07/2026 – 08/2026</span>
+                </div>
+                <ul>
+                    <li>Frontend Angular: tableau de bord, documents, piste d'audit, alertes JWT</li>
+                    <li>Backend Spring Boot: API dépôt (PostgreSQL, MinIO) et microservices Kafka</li>
+                    <li>Qualité: tests JUnit et build Angular automatisé (GitHub Actions)</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <h3>Développeur web – SWH Négoce</h3>
+                <div class="meta">
+                    <span>Catalogue B2B en production avec Sanity.io</span>
+                    <span class="date">10/2025 – 03/2026</span>
+                </div>
+                <ul>
+                    <li>Frontend Next.js/TypeScript: catalogue avec recherche et fiches produits</li>
+                    <li>Parcours de devis: panier, formulaire Zod validé, notifications e-mail</li>
+                    <li>Backend Supabase: espace privé sécurisé par rôles (RLS) avec export CSV</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <h3>Stagiaire développeur backend – ENES Société SARL</h3>
+                <div class="meta">
+                    <span>API pour l'automatisation des processus métiers</span>
+                    <span class="date">06/2025 – 07/2025</span>
+                </div>
+                <ul>
+                    <li>API backend: automatisation processus internes, données clients et produits</li>
+                    <li>Optimisation SQL pour accélération récupération données</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Projets</h2>
+
+            <div class="project">
+                <h3><span class="highlight">Portfolio v2.0</span> – Système d'Animation Avancée</h3>
+                <div class="meta">
+                    <span>Next.js, <span class="highlight">Framer Motion</span>, <span class="highlight">GSAP</span>, <span class="highlight">Lenis</span>, Three.js</span>
+                    <span class="date">github.com/Wvssim/portfolio</span>
+                </div>
+                <ul>
+                    <li>Animations professionnelles: Framer Motion pour révélations scroll-triggered, GSAP pour timelines haute performance</li>
+                    <li>Système particules Canvas réactif souris avec optimisation performance</li>
+                    <li>Scroll fluide global via Lenis, architecture Three.js prête pour effets 3D</li>
+                    <li>Animation library réutilisable: BlurIn, SlideIn, BoxReveal, ScaleIn</li>
+                </ul>
+            </div>
+
+            <div class="project">
+                <h3>Luminos Cinémas – Réservation de cinéma</h3>
+                <div class="meta">
+                    <span>Next.js, TypeScript, Supabase, Stripe</span>
+                    <span class="date">05/2026 – 06/2026</span>
+                </div>
+                <ul>
+                    <li>Réservation: choix séance/place sur plan interactif, paiement Stripe, billet QR</li>
+                    <li>Back-office: PostgreSQL avec indicateurs, assistant RAG (Groq)</li>
+                </ul>
+            </div>
+
+            <div class="project">
+                <h3>EMSI Chatbot – IA Générative (RAG)</h3>
+                <div class="meta">
+                    <span>Python, LangChain, ChromaDB</span>
+                    <span class="date">04/2026</span>
+                </div>
+                <ul>
+                    <li>Répondre aux questions sur PDF: embeddings Groq, ChromaDB, Streamlit</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Compétences</h2>
+            <ul>
+                <li><strong>Frontend:</strong> React, Next.js, Angular, TypeScript, Tailwind CSS, HTML/CSS responsive</li>
+                <li><strong><span class="highlight">Animation avancée:</span></strong> <span class="highlight">Framer Motion (scroll-triggered, viewport animations), GSAP 3 (timelines, interactions), Lenis (smooth scroll)</span></li>
+                <li><strong><span class="highlight">3D & Graphics:</span></strong> <span class="highlight">Three.js, React Three Fiber (prêt 3D), Canvas API, Particle systems</span></li>
+                <li><strong>Backend:</strong> Java/Spring Boot, Node.js, Python, authentification JWT</li>
+                <li><strong>Databases:</strong> PostgreSQL, Supabase, MongoDB, Redis, Kafka/Debezium (CDC)</li>
+                <li><strong>CMS:</strong> Sanity.io (GROQ, schémas), gestion catalogues produits</li>
+                <li><strong>DevOps:</strong> Git/GitHub, GitHub Actions, Docker, Vercel, Netlify</li>
+                <li><strong>Qualité:</strong> Tests JUnit/Jest, ESLint, Web Vitals (Lighthouse), accessibilité WCAG</li>
+                <li><strong>IA:</strong> RAG, LangChain, embeddings, développement assisté IA</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Certificats & Langues</h2>
+            <div style="font-size: 9px;">
+                <p><strong>Certificats:</strong> Software Engineering (HKUST) • React Basics (Meta) • Agile PM (Google) • Cybersecurity (Google)</p>
+                <p><strong>Langues:</strong> Arabe (maternelle) • Français (courant) • Anglais (courant)</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
