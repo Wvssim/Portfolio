@@ -1,54 +1,25 @@
-# Wassim Lazim — Portfolio v2.0
+# Wassim Lazim — Portfolio v3
 
-A trilingual (EN / FR / AR), fully responsive personal portfolio with premium
-animations and 3D effects — built with Next.js, Framer Motion, GSAP, and Lenis.
-
-## Highlights v2.0
-
-🎨 **Advanced Animations**
-- **Framer Motion** — scroll-triggered reveal animations (blur-in, box-reveal, slide-in, scale-in)
-- **GSAP** — high-performance timeline animations and interactions
-- **Lenis** — buttery smooth scroll experience across all devices
-- **Particles** — interactive mouse-reactive canvas background
-
-💎 **Enhanced UX**
-- Dynamic skill cards with hover effects and staggered animations
-- Work grid with elevated card interactions and smooth transitions
-- Improved About section with decrypted text effects
-- Mobile-optimized animations with performance awareness
-
-🌐 **Trilingual i18n** — English, French and Arabic, with a proper **RTL mirror**
-  for Arabic (layout, alignment and decorative elements all flip), via a
-  lightweight React context (`lib/i18n.tsx`) — no external i18n dependency.
-
-📱 **Responsive** — a shared `--gutter` token + grid breakpoints adapt every
-  section from desktop down to mobile.
-
-✨ **Editorial polish** — paper-grain overlay, optical typography (Fraunces +
-  DM Sans), pure-CSS scroll reveals, spotlight cards, an animated gold-dust
-  footer, refined shadows / scrollbar / focus rings. All motion respects
-  `prefers-reduced-motion`.
-
-📜 **Certifications gallery** — 10 certificates as a click-to-open **lightbox**
-  (keyboard navigation, focus trap), optimised WebP previews (~12× smaller than
-  the source PNGs) and live Coursera verification links.
-
-🔍 **SEO / sharing** — `W` favicon, dynamic Open Graph image (`next/og`),
-  `sitemap.xml`, `robots.txt`. The site URL is derived automatically from the
-  Vercel production URL (no hard-coded domain).
+A personal portfolio built on top of [Naresh Khatri's 3d-portfolio
+template](https://github.com/Naresh-Khatri/3d-portfolio) (MIT licensed, see
+`LICENSE`), adapted with Wassim's own projects, experience and content.
 
 ## Tech stack
 
-- [Next.js 15](https://nextjs.org/) (App Router)
-- React 18 + TypeScript
-- **Framer Motion** — animation library for React
-- **GSAP 3** — professional animation platform with @gsap/react plugin
-- **Lenis** — smooth scroll library
-- **Three.js** + React Three Fiber — 3D graphics (ready for 3D effects)
-- Inline styles + a single `app/globals.css` (CSS variables, keyframes,
-  scroll-driven animations)
-- Canvas effects (`LetterGlitch`, `GoldDust`, `Particles`)
-- `next/og` for the social image
+- [Next.js 16](https://nextjs.org/) (App Router, Turbopack, Cache Components)
+- React 19 + TypeScript
+- Tailwind CSS + shadcn/ui (Radix primitives)
+- GSAP + Framer Motion (`motion`) for animation
+- Lenis for smooth scroll
+- Three.js + `@chibi3d/runtime` — the interactive 3D keyboard in the skills
+  section (client-only, loaded via `next/dynamic`)
+- `next-mdx-remote` for the blog
+- Resend for the contact form
+- `socket.io-client` for optional realtime presence/cursors/chat (no-op
+  unless `NEXT_PUBLIC_WS_URL` is set)
+
+Note: this version drops the previous EN/FR/AR i18n system — the site is
+English-only, matching the template.
 
 ## Getting started
 
@@ -64,36 +35,34 @@ npm run build   # production build
 npm run start   # serve the production build
 ```
 
+## Environment variables
+
+See `.env.example`. Everything is optional except `RESEND_API_KEY` if you
+want the contact form to actually send email — the build succeeds without
+it, but sending will fail at request time until it's set.
+
 ## Project structure
 
 ```
-app/
-  layout.tsx            # metadata, fonts, i18n provider
-  page.tsx              # section composition
-  globals.css           # design tokens, animations, responsive grids
-  icon.svg              # favicon
-  opengraph-image.tsx   # dynamic social card
-  sitemap.ts / robots.ts
-  not-found.tsx         # custom 404
-components/             # Hero, Nav, WorkGrid, Education (certs lightbox), …
-lib/
-  i18n.tsx              # language context (+ RTL handling)
-  translations.ts       # EN / FR / AR copy
-  data.ts               # projects, skills, experience, certifications
+src/
+  app/            # routes (App Router)
+  components/     # sections, UI primitives, 3D keyboard, realtime, game
+  data/           # config.ts, constants.ts (skills/experience), projects.tsx
+  content/blogs/  # MDX blog posts
+  lib/, hooks/, contexts/, types/, utils/
 public/
-  certs/*.webp          # certificate previews
-  Wassim_Lazim_CV.pdf
-scripts/
-  convert-certs.mjs     # one-off PNG -> WebP helper (sharp)
+  assets/         # fonts, icons, backgrounds, keyboard models/sounds
+  certs/          # certification previews
+  Wassim_Lazim_CV_Full_Stack.pdf
 ```
 
 ## Deployment
 
 Deployed on [Vercel](https://vercel.com): import the GitHub repo, Next.js is
-auto-detected, deploy. Every push to `main` redeploys automatically. The Open
-Graph image, sitemap and canonical URLs pick up the Vercel production URL on
-their own.
+auto-detected, deploy. Every push to `main` redeploys automatically.
 
 ## License
 
-Personal project — all rights reserved.
+The template this portfolio is built on is MIT licensed by Naresh Khatri
+(see `LICENSE`). Wassim's own content (projects, copy, CV, certificates) is
+not covered by that license.
