@@ -111,7 +111,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     label: "Laravel",
     shortDescription: "Built REST APIs with it at ENES Société.",
     color: "#ff2d20",
-    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-plain.svg",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg",
     keyboardColor: "#ff2d20",
   },
   [SkillNames.JAVA]: {
