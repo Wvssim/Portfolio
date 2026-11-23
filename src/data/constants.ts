@@ -40,6 +40,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "The glue holding every one of my frontends together.",
     color: "#f0db4f",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    keyboardIcon: "/assets/keyboard/logos/js.svg",
     keyboardColor: "#ff9408",
   },
   [SkillNames.TS]: {
@@ -49,6 +50,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "Catches my bugs before the browser does.",
     color: "#007acc",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+    keyboardIcon: "/assets/keyboard/logos/ts.svg",
     keyboardColor: "#008fd5",
   },
   [SkillNames.REACT]: {
@@ -58,6 +60,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "My default for anything with a UI.",
     color: "#61dafb",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    keyboardIcon: "/assets/keyboard/logos/react.svg",
     keyboardColor: "#00cce8",
   },
   [SkillNames.NEXTJS]: {
@@ -67,6 +70,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "Shipped my live B2B platform on it, solo.",
     color: "#fff",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+    keyboardIcon: "/assets/keyboard/logos/nextjs.svg",
     keyboardColor: "#333537",
   },
   [SkillNames.ANGULAR]: {
@@ -76,6 +80,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "Used it to build audit dashboards at 6Solutions.",
     color: "#dd0031",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
+    keyboardIcon: "/assets/keyboard/logos/angular.svg",
     keyboardColor: "#dd0031",
   },
   [SkillNames.TAILWIND]: {
@@ -85,6 +90,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "Utility classes, zero regrets.",
     color: "#38bdf8",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+    keyboardIcon: "/assets/keyboard/logos/tailwind.svg",
     keyboardColor: "#00bfd8",
   },
   [SkillNames.NODEJS]: {
@@ -94,6 +100,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "Backend APIs when I want to stay in JS-land.",
     color: "#6cc24a",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    keyboardIcon: "/assets/keyboard/logos/nodejs.svg",
     keyboardColor: "#00952c",
   },
   [SkillNames.PHP]: {
@@ -103,6 +110,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "Where I started shipping real backends.",
     color: "#777bb4",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
+    keyboardIcon: "/assets/keyboard/logos/php.svg",
     keyboardColor: "#777bb4",
   },
   [SkillNames.LARAVEL]: {
@@ -112,6 +120,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "Built REST APIs with it at ENES Société.",
     color: "#ff2d20",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg",
+    keyboardIcon: "/assets/keyboard/logos/laravel.svg",
     keyboardColor: "#ff2d20",
   },
   [SkillNames.JAVA]: {
@@ -121,6 +130,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "Still my go-to for anything enterprise-shaped.",
     color: "#f89820",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+    keyboardIcon: "/assets/keyboard/logos/java.svg",
     keyboardColor: "#f89820",
   },
   [SkillNames.SPRING]: {
@@ -130,6 +140,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "Microservices with Kafka behind the scenes.",
     color: "#6db33f",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
+    keyboardIcon: "/assets/keyboard/logos/spring.svg",
     keyboardColor: "#6db33f",
   },
   [SkillNames.KOTLIN]: {
@@ -139,6 +150,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "Native Android, no React Native shortcuts.",
     color: "#7f52ff",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg",
+    keyboardIcon: "/assets/keyboard/logos/kotlin.svg",
     keyboardColor: "#7f52ff",
   },
   [SkillNames.PYTHON]: {
@@ -148,6 +160,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "IoT dashboards, RAG pipelines, and everything in between.",
     color: "#3776ab",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+    keyboardIcon: "/assets/keyboard/logos/python.svg",
     keyboardColor: "#3776ab",
   },
   [SkillNames.POSTGRES]: {
@@ -157,6 +170,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "My default database, full stop.",
     color: "#336791",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+    keyboardIcon: "/assets/keyboard/logos/postgres.svg",
     keyboardColor: "#146888",
   },
   [SkillNames.MONGODB]: {
@@ -166,6 +180,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "TTL collections for sensor data that ages out.",
     color: "#47a248",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    keyboardIcon: "/assets/keyboard/logos/mongodb.svg",
     keyboardColor: "#00c51b",
   },
   [SkillNames.DOCKER]: {
@@ -175,6 +190,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "Ships my side projects as cleanly as the big ones.",
     color: "#2496ed",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+    keyboardIcon: "/assets/keyboard/logos/docker.svg",
     keyboardColor: "#009fe8",
   },
   [SkillNames.GIT]: {
@@ -184,6 +200,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "GitHub Actions running my builds while I sleep.",
     color: "#f1502f",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+    keyboardIcon: "/assets/keyboard/logos/git.svg",
     keyboardColor: "#ff4622",
   },
   [SkillNames.LANGCHAIN]: {
@@ -193,6 +210,7 @@ export const SKILLS: Record<SkillNames, Skill> = {
     shortDescription: "RAG pipelines over PDFs with ChromaDB and Groq.",
     color: "#1c3c3c",
     icon: "https://cdn.simpleicons.org/langchain/1C3C3C",
+    keyboardIcon: "/assets/keyboard/logos/langchain.svg",
     keyboardColor: "#1c3c3c",
   },
 };
