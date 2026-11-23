@@ -1,5 +1,4 @@
 import { EmailTemplate } from "@/components/email-template";
-import { config } from "@/data/config";
 import { Resend } from "resend";
 import { z } from "zod";
 
@@ -47,7 +46,9 @@ export async function POST(req: Request) {
 
     const { data: resendData, error: resendError } = await resend.emails.send({
       from: "Porfolio <onboarding@resend.dev>",
-      to: [config.email],
+      // Resend's sandbox sender (no verified custom domain yet) only allows
+      // sending to the account's own owner email, not an arbitrary address.
+      to: ["lazimos.wa@gmail.com"],
       subject: "Contact me from portfolio",
       react: EmailTemplate({
         fullName: zodData.fullName,
